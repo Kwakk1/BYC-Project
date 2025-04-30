@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Custom PC Builder - 🖥️ Build Your Computer</title>
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+    </head>
+    <body class="shop-page">
+        <header>
+            <nav class="navbar section-content">
+                <a href="#" class="nav-logo">
+                    <h2 class="logo-text">🖥️ Build Your Computer</h2>
+                </a>
+                <ul class="nav-menu">
+                    <button
+                        id="menu-close-button"
+                        class="fas fa-times"
+                    ></button>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">🛒 SHOPPING CART</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">LOG IN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">SIGN UP</a>
+                    </li>
+                </ul>
+                <button id="menu-open-button" class="fas fa-bars"></button>
+            </nav>
+        </header>
+        <main>
+            <div class="custom-pc-section">
+                <div class="section-content">
+                    <h1 class="builder-title">CUSTOM PC BUILDER</h1>
+                    
+                    <div class="builder-container">
+                        <div class="builder-left">
+                            <div class="part-selection">
+                                <div class="part-icons">
+                                    <img src="images/cpu.png" alt="CPU" class="part-icon" />
+                                </div>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <div class="dropdown-select" onclick="toggleDropdown('cpu-dropdown')">CPU</div>
+                                        <div id="cpu-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-item">AMD Ryzen 5 5600X</div>
+                                            <div class="dropdown-item">AMD Ryzen 7 5800X</div>
+                                            <div class="dropdown-item">Intel Core i5-12600K</div>
+                                            <div class="dropdown-item">Intel Core i7-12700K</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-selection">
+                                <div class="part-icons">
+                                    <img src="images/motherboard.png" alt="Motherboard" class="part-icon" />
+                                </div>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <div class="dropdown-select" onclick="toggleDropdown('motherboard-dropdown')">MOTHERBOARD</div>
+                                        <div id="motherboard-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-item">ASUS ROG Strix B550-F</div>
+                                            <div class="dropdown-item">MSI MPG B550 Gaming Edge</div>
+                                            <div class="dropdown-item">Gigabyte B550 AORUS Elite</div>
+                                            <div class="dropdown-item">ASRock B550 Steel Legend</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-selection">
+                                <div class="part-icons">
+                                    <img src="images/ram.png" alt="Memory" class="part-icon" />
+                                </div>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <div class="dropdown-select" onclick="toggleDropdown('memory-dropdown')">MEMORY</div>
+                                        <div id="memory-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-item">Corsair Vengeance LPX 16GB</div>
+                                            <div class="dropdown-item">G.Skill Ripjaws V 32GB</div>
+                                            <div class="dropdown-item">Kingston FURY Beast 16GB</div>
+                                            <div class="dropdown-item">Crucial Ballistix 32GB</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-selection">
+                                <div class="part-icons">
+                                    <img src="images/gpu.png" alt="Video Card" class="part-icon" />
+                                </div>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <div class="dropdown-select" onclick="toggleDropdown('video-dropdown')">VIDEO CARD</div>
+                                        <div id="video-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-item">NVIDIA RTX 3060</div>
+                                            <div class="dropdown-item">NVIDIA RTX 3070</div>
+                                            <div class="dropdown-item">AMD Radeon RX 6700 XT</div>
+                                            <div class="dropdown-item">AMD Radeon RX 6800</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-selection">
+                                <div class="part-icons">
+                                    <img src="images/psu.png" alt="Power Supply" class="part-icon" />
+                                </div>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <div class="dropdown-select" onclick="toggleDropdown('power-dropdown')">POWER SUPPLY</div>
+                                        <div id="power-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-item">Corsair RM750x</div>
+                                            <div class="dropdown-item">EVGA SuperNOVA 650 G5</div>
+                                            <div class="dropdown-item">Seasonic FOCUS GX-750</div>
+                                            <div class="dropdown-item">Thermaltake Toughpower GF1 650W</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-selection">
+                                <div class="part-icons">
+                                    <img src="images/storage.png" alt="Storage" class="part-icon" />
+                                </div>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <div class="dropdown-select" onclick="toggleDropdown('storage-dropdown')">STORAGE</div>
+                                        <div id="storage-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-item">Samsung 970 EVO Plus 1TB</div>
+                                            <div class="dropdown-item">WD Black SN750 1TB</div>
+                                            <div class="dropdown-item">Crucial P2 500GB</div>
+                                            <div class="dropdown-item">Seagate Barracuda 2TB</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-selection">
+                                <div class="part-icons">
+                                    <img src="images/cooler.png" alt="CPU Cooler" class="part-icon" />
+                                </div>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <div class="dropdown-select" onclick="toggleDropdown('cooler-dropdown')">CPU COOLER</div>
+                                        <div id="cooler-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-item">Noctua NH-D15</div>
+                                            <div class="dropdown-item">Cooler Master Hyper 212</div>
+                                            <div class="dropdown-item">be quiet! Dark Rock Pro 4</div>
+                                            <div class="dropdown-item">Corsair iCUE H100i Elite Capellix</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-selection">
+                                <div class="part-icons">
+                                    <img src="images/computercase.png" alt="Case" class="part-icon" />
+                                </div>
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <div class="dropdown-select" onclick="toggleDropdown('case-dropdown')">CASE</div>
+                                        <div id="case-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-item">Corsair 4000D Airflow</div>
+                                            <div class="dropdown-item">NZXT H510</div>
+                                            <div class="dropdown-item">Phanteks Eclipse P400A</div>
+                                            <div class="dropdown-item">Lian Li O11 Dynamic</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cart-container">
+                            <div class="cart-total">
+                                <span>Total:</span>
+                                <span>₱0.00</span>
+                            </div>
+                            <button class="cart-btn add-btn">Add to cart</button>
+                            <button class="cart-btn remove-btn">Remove all</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script>
+            function toggleDropdown(id) {
+                const dropdown = document.getElementById(id);
+                dropdown.classList.toggle('show');
+                
+                // Close other dropdowns
+                const allDropdowns = document.querySelectorAll('.dropdown-menu');
+                allDropdowns.forEach(item => {
+                    if (item.id !== id && item.classList.contains('show')) {
+                        item.classList.remove('show');
+                    }
+                });
+            }
+
+            // Close dropdowns when clicking outside
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropdown-select')) {
+                    const dropdowns = document.getElementsByClassName('dropdown-menu');
+                    for (let i = 0; i < dropdowns.length; i++) {
+                        if (dropdowns[i].classList.contains('show')) {
+                            dropdowns[i].classList.remove('show');
+                        }
+                    }
+                }
+            }
+
+            // Handle dropdown item selection
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const dropdownSelect = this.parentElement.previousElementSibling;
+                    const originalText = dropdownSelect.textContent.split(' - ')[0];
+                    dropdownSelect.textContent = `${originalText} - ${this.textContent}`;
+                    this.parentElement.classList.remove('show');
+                });
+            });
+        </script>
+    </body>
+</html>
