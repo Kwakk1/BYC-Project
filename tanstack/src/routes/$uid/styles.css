@@ -1,0 +1,177 @@
+/*shop.html*/
+
+.shop-page {
+  background: var(--primary-color);
+  min-height: 100vh;
+}
+
+.shop-section-content {
+  padding-top: 110px;
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+}
+
+.category-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.category-btn {
+  background-color: #fff;
+  color: var(--primary-color);
+  border: 2px solid transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-s);
+  font-size: 1rem;
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-btn:hover,
+.category-btn.active {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.shop-section-content .product-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0 1rem 2rem;
+  min-height: initial;
+}
+
+.card {
+  width: 280px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  position: relative;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (max-width: 1200px) {
+  .shop-section-content .product-grid {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .category-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .category-btn {
+    width: 80%;
+    text-align: center;
+  }
+}
+
+.badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: #efefef;
+  color: #333;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.product-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.specs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.specs li {
+  margin-bottom: 0.3rem;
+}
+
+.price-box {
+  background-color: #f6f6f6;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.save {
+  display: inline-block;
+  background-color: #ff5e5e;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  margin: 0.5rem 0;
+}
+
+.current-price {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.original-price {
+  font-size: 1.7rem;
+  color: #aaa;
+  text-decoration: line-through;
+  margin-left: 0.5rem;
+}
+
+.buy-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: white;
+  border: 2px solid #ff0000;
+  color: #ff0000;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.buy-btn:hover {
+  background-color: #ff0000;
+  color: white;
+}
