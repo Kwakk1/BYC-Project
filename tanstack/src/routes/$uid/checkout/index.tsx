@@ -1,5 +1,6 @@
 import { FormattedPrice } from "@/helper/currency";
 import { useCartStore } from "@/utils/cart";
+import { useCustomBuildStore } from "@/utils/customBuildStore";
 import { useParams } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
 import { db } from "../../../../config/firebase";
@@ -16,6 +17,11 @@ function RouteComponent() {
   const cart = useCartStore((state) => state.cart);
   const clearCart = useCartStore((state) => state.clearCart);
 
+  const selectedComponents = useCustomBuildStore(
+    (state) => state.selectedComponents
+  );
+  const clearBuild = useCustomBuildStore((state) => state.clearBuild);
+
   // Ensure that Zustand state and localStorage are in sync when the page loads
   useEffect(() => {
     const savedCart = localStorage.getItem("cart-storage");
@@ -31,6 +37,11 @@ function RouteComponent() {
     0
   );
 
+  const customTotalPrice = Object.values(selectedComponents).reduce(
+    (sum, component) => sum + component.price,
+    0
+  );
+
   async function handlePurchaseSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -41,6 +52,12 @@ function RouteComponent() {
     const paymentForm = document.querySelector(
       'form[name="paymentForm"]'
     ) as HTMLFormElement;
+
+    // Validate the forms
+    if (!billingForm.checkValidity() || !paymentForm.checkValidity()) {
+      alert("Please fill out all required fields.");
+      return;
+    }
 
     const billingData = new FormData(billingForm);
     const paymentData = new FormData(paymentForm);
@@ -74,7 +91,14 @@ function RouteComponent() {
         price: item.discount,
         totalPrice: item.discount * item.quantity,
       })),
-      total: totalCartValue,
+      customBuild: Object.entries(selectedComponents).map(
+        ([key, component]) => ({
+          componentKey: key,
+          name: component.name,
+          price: component.price,
+        })
+      ),
+      total: totalCartValue + customTotalPrice,
       paymentMethod: selectedPaymentMethod,
       createdAt: serverTimestamp(),
     };
@@ -83,6 +107,9 @@ function RouteComponent() {
       await addDoc(collection(db, "invoices"), invoiceData);
       alert("Purchase successful! Invoice stored.");
       clearCart();
+      if (Object.keys(selectedComponents).length > 0) {
+        clearBuild();
+      }
     } catch (err) {
       console.error("Failed to store invoice:", err);
       alert("Something went wrong while saving the invoice.");
@@ -95,7 +122,7 @@ function RouteComponent() {
         style={{ padding: "20px" }}
         className="bg-white flex flex-1/2 flex-col gap-10"
       >
-        <p className="text-4xl">Biling Details</p>
+        <p className="text-4xl">Billing Details</p>
         <form name="billingForm">
           <div className="flex gap-10">
             <div className="flex w-full flex-col gap-1">
@@ -107,6 +134,7 @@ function RouteComponent() {
                   border: "2px solid #90a1b9",
                   padding: "5px 10px 5px 10px",
                 }}
+                required
               />
             </div>
 
@@ -119,6 +147,7 @@ function RouteComponent() {
                   border: "2px solid #90a1b9",
                   padding: "5px 10px 5px 10px",
                 }}
+                required
               />
             </div>
           </div>
@@ -134,6 +163,7 @@ function RouteComponent() {
               }}
               disabled
               defaultValue="Philippines"
+              required
             />
           </div>
 
@@ -146,6 +176,7 @@ function RouteComponent() {
                 border: "2px solid #90a1b9",
                 padding: "5px 10px 5px 10px",
               }}
+              required
             />
           </div>
 
@@ -158,6 +189,7 @@ function RouteComponent() {
                 border: "2px solid #90a1b9",
                 padding: "5px 10px 5px 10px",
               }}
+              required
             />
           </div>
 
@@ -170,6 +202,7 @@ function RouteComponent() {
                 border: "2px solid #90a1b9",
                 padding: "5px 10px 5px 10px",
               }}
+              required
             />
           </div>
 
@@ -182,6 +215,7 @@ function RouteComponent() {
                 border: "2px solid #90a1b9",
                 padding: "5px 10px 5px 10px",
               }}
+              required
             />
           </div>
 
@@ -194,6 +228,7 @@ function RouteComponent() {
                 border: "2px solid #90a1b9",
                 padding: "5px 10px 5px 10px",
               }}
+              required
             />
           </div>
 
@@ -206,6 +241,7 @@ function RouteComponent() {
                 border: "2px solid #90a1b9",
                 padding: "5px 10px 5px 10px",
               }}
+              required
             />
           </div>
 
@@ -218,6 +254,7 @@ function RouteComponent() {
                 border: "2px solid #90a1b9",
                 padding: "5px 10px 5px 10px",
               }}
+              required
             />
           </div>
         </form>
@@ -259,73 +296,63 @@ function RouteComponent() {
                 </tr>
               </thead>
               <tbody>
-                {cart.map((cart, index) => (
+                {/* Display items from the cart */}
+                {cart.map((cartItem, index) => (
                   <tr key={index} className="border-b hover:bg-gray-50">
                     <td
                       style={{ borderBottom: "2px solid #777777" }}
                       className="px-6 py-3"
                     >
-                      <input
-                        type="text"
-                        name="pcTitle"
-                        value={cart.title}
-                        readOnly
-                        style={{
-                          pointerEvents: "none", // prevent interaction
-                          border: "none", // remove border
-                          background: "transparent", // make background look like plain text
-                          color: "inherit", // inherit text color
-                          font: "inherit", // inherit font styling
-                          cursor: "default", // normal arrow cursor
-                          paddingTop: "10px",
-                          paddingBottom: "10px",
-                        }}
-                      />
+                      {cartItem.title}
                     </td>
                     <td
-                      style={{ borderBottom: "2px solid #777777" }}
-                      className="px-6 py-3 text-blue-700"
+                      style={{
+                        borderBottom: "2px solid #777777",
+                      }}
+                      className=" text-blue-700"
                     >
-                      <input
-                        type="text"
-                        name="pcPrice"
-                        value={FormattedPrice(cart.discount)}
-                        readOnly
-                        className="text-right"
-                        style={{
-                          pointerEvents: "none", // prevent interaction
-                          border: "none", // remove border
-                          background: "transparent", // make background look like plain text
-                          color: "inherit", // inherit text color
-                          font: "inherit", // inherit font styling
-                          cursor: "default", // normal arrow cursor
-                          paddingTop: "10px",
-                          paddingBottom: "10px",
-                        }}
-                      />
+                      {FormattedPrice(cartItem.discount * cartItem.quantity)}
                     </td>
                   </tr>
                 ))}
+
+                {/* Display custom PC build components */}
+                {Object.entries(selectedComponents).map(
+                  ([key, component], index) => (
+                    <tr
+                      key={`custom-${index}`}
+                      className="border-b hover:bg-gray-50"
+                    >
+                      <td
+                        style={{ borderBottom: "2px solid #777777" }}
+                        className="px-6 py-3"
+                      >
+                        {key}: {component.name}
+                      </td>
+                      <td
+                        style={{ borderBottom: "2px solid #777777" }}
+                        className="text-blue-700"
+                      >
+                        {FormattedPrice(component.price)}
+                      </td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
+
+            {/* Display total price */}
             <div className="flex justify-between w-full">
               <p style={{ padding: "10px 0 10px 0" }}>TOTAL</p>
-              <input
-                type="text"
-                name="pcPrice"
-                value={FormattedPrice(totalCartValue)}
-                readOnly
-                className="text-right"
+              <p
+                className="text-right items-center flex"
                 style={{
-                  paddingRight: "50px",
-                  pointerEvents: "none", // prevent interaction
-                  border: "none", // remove border
-                  background: "transparent", // make background look like plain text
-                  color: "inherit", // inherit text color
-                  font: "inherit", // inherit font styling
-                  cursor: "default", // normal arrow cursor
+                  paddingRight: "60px",
+                  fontWeight: "bold",
                 }}
-              />
+              >
+                {FormattedPrice(totalCartValue + customTotalPrice)}
+              </p>
             </div>
             <hr />
             <div className="flex">

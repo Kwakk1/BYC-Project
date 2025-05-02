@@ -1,7 +1,7 @@
 import { FormattedPrice } from "@/helper/currency";
 import { useCartStore } from "@/utils/cart";
+import { useCustomBuildStore } from "@/utils/customBuildStore";
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
-// import { getUser } from "config/auth";
 import { useEffect } from "react";
 
 export const Route = createFileRoute("/$uid/shopping-cart/")({
@@ -16,6 +16,12 @@ function RouteComponent() {
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const clearCart = useCartStore((state) => state.clearCart);
 
+  const selectedComponents = useCustomBuildStore(
+    (state) => state.selectedComponents
+  );
+  const customTotalPrice = useCustomBuildStore((state) => state.totalPrice);
+  const clearBuild = useCustomBuildStore((state) => state.clearBuild);
+
   // Ensure that Zustand state and localStorage are in sync when the page loads
   useEffect(() => {
     const savedCart = localStorage.getItem("cart-storage");
@@ -26,10 +32,9 @@ function RouteComponent() {
     }
   }, []);
 
-  const totalCartValue = cart.reduce(
-    (sum, item) => sum + item.discount * item.quantity,
-    0
-  );
+  const totalCartValue =
+    cart.reduce((sum, item) => sum + item.discount * item.quantity, 0) +
+    customTotalPrice;
 
   return (
     <div
@@ -37,7 +42,7 @@ function RouteComponent() {
       className="shop-section-content flex flex-col gap-10"
     >
       <p className="text-white text-5xl">SHOPPING CART</p>
-      {cart.length === 0 ? (
+      {cart.length === 0 && Object.keys(selectedComponents).length === 0 ? (
         <div className="bg-white w-full text-2xl text-center py-5">
           Your cart is empty.
         </div>
@@ -74,6 +79,7 @@ function RouteComponent() {
                 </tr>
               </thead>
               <tbody>
+                {/* Display AMD/Intel builds */}
                 {cart.map((item, index) => (
                   <tr key={index}>
                     <td style={{ padding: "20px" }} className="text-xl">
@@ -105,10 +111,45 @@ function RouteComponent() {
                     </td>
                   </tr>
                 ))}
+
+                {/* Display Custom PC Build */}
+                {Object.entries(selectedComponents).length > 0 && (
+                  <tr>
+                    <td style={{ padding: "20px" }} className="text-xl">
+                      Custom PC Build
+                      <ul className="text-sm text-gray-500">
+                        {Object.entries(selectedComponents).map(
+                          ([key, component]) => (
+                            <li key={key}>
+                              {key}: {component.name} - ₱
+                              {component.price.toLocaleString()}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </td>
+                    <td style={{ padding: "20px" }} className="text-xl">
+                      {FormattedPrice(customTotalPrice)}
+                    </td>
+                    <td style={{ padding: "20px" }} className="text-xl">
+                      1
+                    </td>
+                    <td style={{ padding: "20px" }} className="text-xl">
+                      {FormattedPrice(customTotalPrice)}
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
 
-            <button onClick={clearCart}>
+            <button
+              onClick={() => {
+                clearCart();
+                if (Object.keys(selectedComponents).length > 0) {
+                  clearBuild();
+                }
+              }}
+            >
               <p style={{ padding: "10px" }} className="bg-white text-xl">
                 Clear all
               </p>
