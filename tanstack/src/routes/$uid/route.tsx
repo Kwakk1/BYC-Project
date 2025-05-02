@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-router";
 import "./styles.css";
 import { doSignOut, getUser, initAuth } from "../../../config/auth";
-import { seedDatabase } from "../../../config/seedDatabase";
+// import { seedDatabase } from "../../../config/seedDatabase";
 
 export const Route = createFileRoute("/$uid")({
   beforeLoad: async () => {
@@ -34,15 +34,15 @@ function RouteComponent() {
     navigate({ to: "/login-register" }); // Redirect to login/register page
   };
 
-  async function handleSeedDatabase() {
-    try {
-      await seedDatabase();
-      alert("Database seeded successfully!");
-    } catch (error) {
-      console.error("Error seeding database:", error);
-      alert("Failed to seed the database. Check the console for details.");
-    }
-  }
+  // async function handleSeedDatabase() {
+  //   try {
+  //     await seedDatabase();
+  //     alert("Database seeded successfully!");
+  //   } catch (error) {
+  //     console.error("Error seeding database:", error);
+  //     alert("Failed to seed the database. Check the console for details.");
+  //   }
+  // }
 
   return (
     <div className="shop-page">
