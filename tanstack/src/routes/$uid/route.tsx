@@ -51,9 +51,9 @@ function RouteComponent() {
           <a href="#" className="nav-logo">
             <h2 className="logo-text">🖥️ Build Your Computer</h2>
           </a>
-          <button onClick={handleSeedDatabase} className="nav-link">
+          {/* <button onClick={handleSeedDatabase} className="nav-link">
             Seed Database
-          </button>
+          </button> */}
           <ul className="nav-menu">
             <button id="menu-close-button" className="fas fa-times"></button>
 

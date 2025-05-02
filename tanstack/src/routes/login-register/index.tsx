@@ -95,15 +95,7 @@ function RouteComponent() {
               <a href="#" className="icon" onClick={handleGoogleSignIn}>
                 <i className="fa-brands fa-google-plus-g"></i>
               </a>
-              <a href="#" className="icon">
-                <i className="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="#" className="icon">
-                <i className="fa-brands fa-github"></i>
-              </a>
-              <a href="#" className="icon">
-                <i className="fa-brands fa-linkedin-in"></i>
-              </a>
+              
             </div>
             <span>or use your email for registeration</span>
             <input type="text" name="firstName" placeholder="Name" />
@@ -121,15 +113,7 @@ function RouteComponent() {
               <a href="#" className="icon" onClick={handleGoogleSignIn}>
                 <i className="fa-brands fa-google-plus-g"></i>
               </a>
-              <a href="#" className="icon">
-                <i className="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="#" className="icon">
-                <i className="fa-brands fa-github"></i>
-              </a>
-              <a href="#" className="icon">
-                <i className="fa-brands fa-linkedin-in"></i>
-              </a>
+              
             </div>
             <span>or use your email password</span>
             <input type="email" name="email" placeholder="Email" />
